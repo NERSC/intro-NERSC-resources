@@ -1,2 +1,2 @@
 # intro-NERSC-resources
-LBNL CSA Summer Student classes hands-on
+Hands on exercises for LBNL CSA Summer Student classes (also open to NERSC users) 
