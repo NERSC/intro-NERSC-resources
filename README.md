@@ -1,2 +1,2 @@
 # intro-NERSC-resources
-Hands on exercises for LBNL CSA Summer Student classes (also open to NERSC users) 
+Hands on exercises for the LBNL CSA Summer Student Program (CSASP) class, also open to NERSC users.
