@@ -6,4 +6,4 @@
 #SBATCH -J my_job
 
 ./serial-hello
-srun -n 64 -c 2 --cpu-bind=cores ./mpi-hello
+srun -n 64 -c 4 --cpu-bind=cores ./mpi-hello
