@@ -1,0 +1,256 @@
+      .version 7.0
+      .target sm_80
+      .address_size 64
+
+      // Cray Fortran : Version 15.0.1
+
+      .file	1	"pi_targ.f90"
+
+      .entry main_$ck_L16_1(
+               .param .s64 $$arg_ptr_acc_sum_t23_t85,
+               .param .s64 $$arg_ptr_reduc_ctl_t41_t86,
+               .param .s64 $$arg_ptr_reduc_val_t45_t88 )
+      {
+      .shared .s32 reduc_share_ctl_c2__f1s301;
+      .shared .u64 $$_redfold_t65__f1s396[128];
+      //
+      .reg .pred %p<14>;
+      .reg .b64  %bd<13>;
+      .reg .s32  %s<13>;
+      .reg .s64  %sd<34>;
+      .reg .u32  %u<14>;
+      .reg .u64  %ud<8>;
+      .reg .f32  %f<3>;
+      .reg .f64  %fd<40>;
+      //
+      .loc                 1  16  0
+      .loc                 1  16  0
+      mov.f64              %fd1, 0d0000000000000000;   // pi_targ.f90:16 : $_pvt3_sum_t17
+      .loc                 1  17  0
+      mov.u32              %u6, %nctaid.x;             // pi_targ.f90:17
+      mov.u32              %u4, %nctaid.x;             // pi_targ.f90:17 : $$gvn_27_t76
+      mov.u32              %u7, %ntid.x;               // pi_targ.f90:17
+      mov.u32              %u5, %ntid.x;               // pi_targ.f90:17 : $$gvn_28_t77
+      mul.lo.u32           %s3, %u6, %u7;              // pi_targ.f90:17 : $$numthrds_t29
+      mov.u32              %u8, %ctaid.x;              // pi_targ.f90:17
+      mov.u32              %u2, %ctaid.x;              // pi_targ.f90:17 : $$gvn_25_t74
+      mov.u32              %u9, %tid.x;                // pi_targ.f90:17
+      mov.u32              %u1, %tid.x;                // pi_targ.f90:17 : $$gvn_26_t75
+      mad.lo.u32           %s1, %u8, %u7, %u9;         // pi_targ.f90:17 : $$tid_t30
+      .loc                 1  17  0
+      mov.s32              %s2, %s1;                   // pi_targ.f90:17 : $$i_l17_4_t57
+      .loc                 1  17  0
+      setp.ge.s32          %p1, %s1, 100000000;        // pi_targ.f90:17
+      @%p1 bra             $main_$ck_L16_1__l22__;     // pi_targ.f90:17
+$main_$ck_L16_1__l18__:
+      .loc                 1  19  0
+      add.s32              %s5, %s2, 1;                // pi_targ.f90:19
+      cvt.rn.f32.s32       %f1, %s5;                   // pi_targ.f90:19
+      add.rn.f32           %f2, %f1, 0fbf000000;       // pi_targ.f90:19
+      cvt.f64.f32          %fd7, %f2;                  // pi_targ.f90:19
+      mul.rn.f64           %fd8, %fd7, 0d3e45798ee0000000;// pi_targ.f90:19
+      mad.rn.f64           %fd9, %fd8, %fd8, 0d3ff0000000000000;// pi_targ.f90:19
+      div.rn.f64           %fd10, 0d4010000000000000, %fd9;// pi_targ.f90:19
+      add.rn.f64           %fd1, %fd1, %fd10;          // pi_targ.f90:19 : $_pvt3_sum_t17
+      .loc                 1  20  0
+      add.s32              %s2, %s3, %s2;              // pi_targ.f90:20 : $$i_l17_4_t57
+      setp.lt.s32          %p2, %s2, 100000000;        // pi_targ.f90:20
+      @%p2 bra             $main_$ck_L16_1__l18__;     // pi_targ.f90:20
+$main_$ck_L16_1__l22__:
+      .loc                 1  21  0
+      mov.u32              %u10, %tid.x;               // pi_targ.f90:21
+      cvt.u64.u32          %ud1, %tid.x;               // pi_targ.f90:21
+      shl.b64              %bd1, %ud1, 3;              // pi_targ.f90:21
+      mov.s64              %sd2, $$_redfold_t65__f1s396;// pi_targ.f90:21
+      add.s64              %sd3, %sd2, %bd1;           // pi_targ.f90:21
+      st.volatile.shared.f64 [%sd3], %fd1;             // pi_targ.f90:21 : 0[_&$$_redfold_t65,.(integer*8) .(unsigned integer*8) $$lvn_32_t80].L
+      bar.sync             0;                          // pi_targ.f90:21
+      ld.volatile.shared.f64 %fd2, [%sd3];             // pi_targ.f90:21 : $redfold_left_temp_t66
+      setp.ge.u32          %p3, %u10, 64;              // pi_targ.f90:21
+      @%p3 bra             $main_$ck_L16_1__l25__;     // pi_targ.f90:21
+      .loc                 1  21  0
+      cvt.s64.u32          %sd4, %tid.x;               // pi_targ.f90:21
+      shl.b64              %bd2, %sd4, 3;              // pi_targ.f90:21
+      mov.s64              %sd5, $$_redfold_t65__f1s396;// pi_targ.f90:21
+      add.s64              %sd6, %sd5, %bd2;           // pi_targ.f90:21
+      ld.volatile.shared.f64 %fd11, [%sd6 + 512];      // pi_targ.f90:21 : 64[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd2, %fd2, %fd11;          // pi_targ.f90:21 : $redfold_left_temp_t66
+      cvt.u64.u32          %ud2, %tid.x;               // pi_targ.f90:21
+      shl.b64              %bd3, %ud2, 3;              // pi_targ.f90:21
+      add.s64              %sd7, %sd5, %bd3;           // pi_targ.f90:21
+      st.volatile.shared.f64 [%sd7], %fd2;             // pi_targ.f90:21 : 0[_&$$_redfold_t65,.(integer*8) .(unsigned integer*8) _acc_read_hw_reg(%tid.x)].L
+$main_$ck_L16_1__l25__:
+      .loc                 1  21  0
+      bar.sync             0;                          // pi_targ.f90:21
+      mov.u32              %u11, %tid.x;               // pi_targ.f90:21
+      setp.ge.u32          %p4, %u11, 32;              // pi_targ.f90:21
+      @%p4 bra             $main_$ck_L16_1__l28__;     // pi_targ.f90:21
+      .loc                 1  21  0
+      cvt.s64.u32          %sd8, %tid.x;               // pi_targ.f90:21
+      shl.b64              %bd4, %sd8, 3;              // pi_targ.f90:21
+      mov.s64              %sd9, $$_redfold_t65__f1s396;// pi_targ.f90:21
+      add.s64              %sd10, %sd9, %bd4;          // pi_targ.f90:21
+      ld.volatile.shared.f64 %fd12, [%sd10 + 256];     // pi_targ.f90:21 : 32[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd13, %fd2, %fd12;         // pi_targ.f90:21
+      mov.f64              %fd2, %fd13;                // pi_targ.f90:21 : $redfold_left_temp_t66
+      cvt.u64.u32          %ud3, %tid.x;               // pi_targ.f90:21
+      cvt.s32.s64          %s6, %ud3;                  // pi_targ.f90:21
+      cvt.s64.s32          %sd11, %s6;                 // pi_targ.f90:21
+      shl.b64              %bd5, %sd11, 3;             // pi_targ.f90:21
+      add.s64              %sd12, %sd9, %bd5;          // pi_targ.f90:21
+      st.volatile.shared.f64 [%sd12], %fd13;           // pi_targ.f90:21 : 0[_&$$_redfold_t65,$$lvn_33_t81].L
+      ld.volatile.shared.f64 %fd14, [%sd10 + 128];     // pi_targ.f90:21 : 16[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd15, %fd13, %fd14;        // pi_targ.f90:21
+      mov.f64              %fd2, %fd15;                // pi_targ.f90:21 : $redfold_left_temp_t66
+      st.volatile.shared.f64 [%sd12], %fd15;           // pi_targ.f90:21 : 0[_&$$_redfold_t65,$$lvn_33_t81].L
+      ld.volatile.shared.f64 %fd16, [%sd10 + 64];      // pi_targ.f90:21 : 8[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd17, %fd15, %fd16;        // pi_targ.f90:21
+      mov.f64              %fd2, %fd17;                // pi_targ.f90:21 : $redfold_left_temp_t66
+      st.volatile.shared.f64 [%sd12], %fd17;           // pi_targ.f90:21 : 0[_&$$_redfold_t65,$$lvn_33_t81].L
+      ld.volatile.shared.f64 %fd18, [%sd10 + 32];      // pi_targ.f90:21 : 4[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd19, %fd17, %fd18;        // pi_targ.f90:21
+      mov.f64              %fd2, %fd19;                // pi_targ.f90:21 : $redfold_left_temp_t66
+      st.volatile.shared.f64 [%sd12], %fd19;           // pi_targ.f90:21 : 0[_&$$_redfold_t65,$$lvn_33_t81].L
+      ld.volatile.shared.f64 %fd20, [%sd10 + 16];      // pi_targ.f90:21 : 2[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd21, %fd19, %fd20;        // pi_targ.f90:21
+      mov.f64              %fd2, %fd21;                // pi_targ.f90:21 : $redfold_left_temp_t66
+      st.volatile.shared.f64 [%sd12], %fd21;           // pi_targ.f90:21 : 0[_&$$_redfold_t65,$$lvn_33_t81].L
+      ld.volatile.shared.f64 %fd22, [%sd10 + 8];       // pi_targ.f90:21 : 1[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd23, %fd21, %fd22;        // pi_targ.f90:21
+      mov.f64              %fd2, %fd23;                // pi_targ.f90:21 : $redfold_left_temp_t66
+      st.volatile.shared.f64 [%sd12], %fd23;           // pi_targ.f90:21 : 0[_&$$_redfold_t65,$$lvn_33_t81].L
+$main_$ck_L16_1__l28__:
+      .loc                 1  21  0
+      bar.sync             0;                          // pi_targ.f90:21
+      mov.s64              %sd13, $$_redfold_t65__f1s396;// pi_targ.f90:21
+      ld.volatile.shared.f64 %fd3, [%sd13];            // pi_targ.f90:21 : $redfinal_t68
+      bar.sync             0;                          // pi_targ.f90:21
+      setp.ne.u32          %p5, %u1, 0;                // pi_targ.f90:21
+      selp.u32             %u3, 1, 0, %p5;             // pi_targ.f90:21 : $$gvn_24_t73
+      @%p5 bra             $main_$ck_L16_1__l31__;     // pi_targ.f90:21
+      .loc                 1  21  0
+      cvt.u64.u32          %ud4, %u2;                  // pi_targ.f90:21
+      shl.b64              %bd6, %ud4, 3;              // pi_targ.f90:21
+      ld.param.s64         %sd14, [$$arg_ptr_reduc_val_t45_t88];// pi_targ.f90:21 : $$arg_ptr_reduc_val_t45_t88
+      add.s64              %sd15, %sd14, %bd6;         // pi_targ.f90:21
+      st.global.f64        [%sd15], %fd3;              // pi_targ.f90:21 : 0[$$arg_ptr_reduc_val_t45_t88,.(integer*8) .(unsigned integer*8) $$gvn_25_t74].L
+$main_$ck_L16_1__l31__:
+      .loc                 1  21  0
+      membar.gl;                                       // pi_targ.f90:21
+      setp.ne.u32          %p6, %u3, 0;                // pi_targ.f90:21
+      @%p6 bra             $main_$ck_L16_1__l34__;     // pi_targ.f90:21
+      .loc                 1  21  0
+      sub.s32              %s7, 1, %u4;                // pi_targ.f90:21
+      setp.eq.u32          %p7, %u2, 0;                // pi_targ.f90:21
+      selp.s32             %s8, %s7, 1, %p7;           // pi_targ.f90:21
+      ld.param.s64         %sd16, [$$arg_ptr_reduc_ctl_t41_t86];// pi_targ.f90:21 : $$arg_ptr_reduc_ctl_t41_t86
+      atom.global.add.s32  %s9, [%sd16], %s8;          // pi_targ.f90:21
+      add.s32              %s10, %s8, %s9;             // pi_targ.f90:21
+      st.volatile.shared.s32 [reduc_share_ctl_c2__f1s301], %s10;// pi_targ.f90:21 : reduc_share_ctl_c2
+$main_$ck_L16_1__l34__:
+      .loc                 1  21  0
+      bar.sync             0;                          // pi_targ.f90:21
+      ld.volatile.shared.s32 %s11, [reduc_share_ctl_c2__f1s301];// pi_targ.f90:21 : reduc_share_ctl_c2
+      setp.ne.s32          %p8, %s11, 0;               // pi_targ.f90:21
+      @%p8 bra             $main_$ck_L16_1__l54__;     // pi_targ.f90:21
+      .loc                 1  21  0
+      mov.f64              %fd4, 0d0000000000000000;   // pi_targ.f90:21 : $$reduc_pvt_t44_t87
+      .loc                 1  21  0
+      mov.s32              %s4, %u1;                   // pi_targ.f90:21 : $$induc_p3_t58
+      .loc                 1  21  0
+      setp.ge.u32          %p9, %u1, %u4;              // pi_targ.f90:21
+      @%p9 bra             $main_$ck_L16_1__l45__;     // pi_targ.f90:21
+      .loc                 1  21  0
+      cvt.s64.u32          %sd1, %u4;                  // pi_targ.f90:21 : $$t_induc_p3_h0_t59
+$main_$ck_L16_1__l41__:
+      .loc                 1  21  0
+      cvt.s64.s32          %sd17, %s4;                 // pi_targ.f90:21
+      shl.b64              %bd7, %sd17, 3;             // pi_targ.f90:21
+      ld.param.s64         %sd18, [$$arg_ptr_reduc_val_t45_t88];// pi_targ.f90:21 : $$arg_ptr_reduc_val_t45_t88
+      add.s64              %sd19, %sd18, %bd7;         // pi_targ.f90:21
+      ld.global.f64        %fd24, [%sd19];             // pi_targ.f90:21 : 0[$$arg_ptr_reduc_val_t45_t88,.(integer*8) $$induc_p3_t58].L
+      add.rn.f64           %fd4, %fd4, %fd24;          // pi_targ.f90:21 : $$reduc_pvt_t44_t87
+      add.u32              %s4, %s4, %u5;              // pi_targ.f90:21 : $$induc_p3_t58
+      cvt.s64.s32          %sd20, %s4;                 // pi_targ.f90:21
+      setp.lt.s64          %p10, %sd20, %sd1;          // pi_targ.f90:21
+      @%p10 bra            $main_$ck_L16_1__l41__;     // pi_targ.f90:21
+$main_$ck_L16_1__l45__:
+      .loc                 1  21  0
+      mov.u32              %u12, %tid.x;               // pi_targ.f90:21
+      cvt.u64.u32          %ud5, %tid.x;               // pi_targ.f90:21
+      shl.b64              %bd8, %ud5, 3;              // pi_targ.f90:21
+      mov.s64              %sd21, $$_redfold_t65__f1s396;// pi_targ.f90:21
+      add.s64              %sd22, %sd21, %bd8;         // pi_targ.f90:21
+      st.volatile.shared.f64 [%sd22], %fd4;            // pi_targ.f90:21 : 0[_&$$_redfold_t65,.(integer*8) .(unsigned integer*8) $$lvn_34_t82].L
+      bar.sync             0;                          // pi_targ.f90:21
+      ld.volatile.shared.f64 %fd5, [%sd22];            // pi_targ.f90:21 : $redfold_left_temp_t69
+      setp.ge.u32          %p11, %u12, 64;             // pi_targ.f90:21
+      @%p11 bra            $main_$ck_L16_1__l48__;     // pi_targ.f90:21
+      .loc                 1  21  0
+      cvt.s64.u32          %sd23, %tid.x;              // pi_targ.f90:21
+      shl.b64              %bd9, %sd23, 3;             // pi_targ.f90:21
+      mov.s64              %sd24, $$_redfold_t65__f1s396;// pi_targ.f90:21
+      add.s64              %sd25, %sd24, %bd9;         // pi_targ.f90:21
+      ld.volatile.shared.f64 %fd25, [%sd25 + 512];     // pi_targ.f90:21 : 64[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd5, %fd5, %fd25;          // pi_targ.f90:21 : $redfold_left_temp_t69
+      cvt.u64.u32          %ud6, %tid.x;               // pi_targ.f90:21
+      shl.b64              %bd10, %ud6, 3;             // pi_targ.f90:21
+      add.s64              %sd26, %sd24, %bd10;        // pi_targ.f90:21
+      st.volatile.shared.f64 [%sd26], %fd5;            // pi_targ.f90:21 : 0[_&$$_redfold_t65,.(integer*8) .(unsigned integer*8) _acc_read_hw_reg(%tid.x)].L
+$main_$ck_L16_1__l48__:
+      .loc                 1  21  0
+      bar.sync             0;                          // pi_targ.f90:21
+      mov.u32              %u13, %tid.x;               // pi_targ.f90:21
+      setp.ge.u32          %p12, %u13, 32;             // pi_targ.f90:21
+      @%p12 bra            $main_$ck_L16_1__l51__;     // pi_targ.f90:21
+      .loc                 1  21  0
+      cvt.s64.u32          %sd27, %tid.x;              // pi_targ.f90:21
+      shl.b64              %bd11, %sd27, 3;            // pi_targ.f90:21
+      mov.s64              %sd28, $$_redfold_t65__f1s396;// pi_targ.f90:21
+      add.s64              %sd29, %sd28, %bd11;        // pi_targ.f90:21
+      ld.volatile.shared.f64 %fd26, [%sd29 + 256];     // pi_targ.f90:21 : 32[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd27, %fd5, %fd26;         // pi_targ.f90:21
+      mov.f64              %fd5, %fd27;                // pi_targ.f90:21 : $redfold_left_temp_t69
+      cvt.u64.u32          %ud7, %tid.x;               // pi_targ.f90:21
+      cvt.s32.s64          %s12, %ud7;                 // pi_targ.f90:21
+      cvt.s64.s32          %sd30, %s12;                // pi_targ.f90:21
+      shl.b64              %bd12, %sd30, 3;            // pi_targ.f90:21
+      add.s64              %sd31, %sd28, %bd12;        // pi_targ.f90:21
+      st.volatile.shared.f64 [%sd31], %fd27;           // pi_targ.f90:21 : 0[_&$$_redfold_t65,$$lvn_35_t83].L
+      ld.volatile.shared.f64 %fd28, [%sd29 + 128];     // pi_targ.f90:21 : 16[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd29, %fd27, %fd28;        // pi_targ.f90:21
+      mov.f64              %fd5, %fd29;                // pi_targ.f90:21 : $redfold_left_temp_t69
+      st.volatile.shared.f64 [%sd31], %fd29;           // pi_targ.f90:21 : 0[_&$$_redfold_t65,$$lvn_35_t83].L
+      ld.volatile.shared.f64 %fd30, [%sd29 + 64];      // pi_targ.f90:21 : 8[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd31, %fd29, %fd30;        // pi_targ.f90:21
+      mov.f64              %fd5, %fd31;                // pi_targ.f90:21 : $redfold_left_temp_t69
+      st.volatile.shared.f64 [%sd31], %fd31;           // pi_targ.f90:21 : 0[_&$$_redfold_t65,$$lvn_35_t83].L
+      ld.volatile.shared.f64 %fd32, [%sd29 + 32];      // pi_targ.f90:21 : 4[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd33, %fd31, %fd32;        // pi_targ.f90:21
+      mov.f64              %fd5, %fd33;                // pi_targ.f90:21 : $redfold_left_temp_t69
+      st.volatile.shared.f64 [%sd31], %fd33;           // pi_targ.f90:21 : 0[_&$$_redfold_t65,$$lvn_35_t83].L
+      ld.volatile.shared.f64 %fd34, [%sd29 + 16];      // pi_targ.f90:21 : 2[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd35, %fd33, %fd34;        // pi_targ.f90:21
+      mov.f64              %fd5, %fd35;                // pi_targ.f90:21 : $redfold_left_temp_t69
+      st.volatile.shared.f64 [%sd31], %fd35;           // pi_targ.f90:21 : 0[_&$$_redfold_t65,$$lvn_35_t83].L
+      ld.volatile.shared.f64 %fd36, [%sd29 + 8];       // pi_targ.f90:21 : 1[_&$$_redfold_t65,_acc_read_hw_reg(%tid.x)].L
+      add.rn.f64           %fd37, %fd35, %fd36;        // pi_targ.f90:21
+      mov.f64              %fd5, %fd37;                // pi_targ.f90:21 : $redfold_left_temp_t69
+      st.volatile.shared.f64 [%sd31], %fd37;           // pi_targ.f90:21 : 0[_&$$_redfold_t65,$$lvn_35_t83].L
+$main_$ck_L16_1__l51__:
+      .loc                 1  21  0
+      bar.sync             0;                          // pi_targ.f90:21
+      mov.s64              %sd32, $$_redfold_t65__f1s396;// pi_targ.f90:21
+      ld.volatile.shared.f64 %fd6, [%sd32];            // pi_targ.f90:21 : $redfinal_t71
+      bar.sync             0;                          // pi_targ.f90:21
+      setp.ne.u32          %p13, %u3, 0;               // pi_targ.f90:21
+      @%p13 bra            $main_$ck_L16_1__l54__;     // pi_targ.f90:21
+      .loc                 1  21  0
+      ld.param.s64         %sd33, [$$arg_ptr_acc_sum_t23_t85];// pi_targ.f90:21 : $$arg_ptr_acc_sum_t23_t85
+      ld.global.f64        %fd38, [%sd33];             // pi_targ.f90:21 : 0[$$arg_ptr_acc_sum_t23_t85,0].L
+      add.rn.f64           %fd39, %fd38, %fd6;         // pi_targ.f90:21
+      st.global.f64        [%sd33], %fd39;             // pi_targ.f90:21 : 0[$$arg_ptr_acc_sum_t23_t85,0].L
+$main_$ck_L16_1__l54__:
+      exit;
+      } // main_$ck_L16_1
+

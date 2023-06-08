@@ -1,0 +1,37 @@
+
+This is an OpenMP offload program to calculate pi on GPU
+
+1) To compile on a login node:
+
+First, load the gpu module:
+% module load gpu
+
+To use Nvidia compiler:
+% module load PrgEnv-nvidia
+% ftn -mp=gpu -o pi_targ pi_targ.f90
+
+Or to use Cray compiler:
+% module load PrgEnv-cray
+% ftn -homp -hnoacc -o pi_targ pi_targ.f90
+
+2) To run in an interactive qos with a reservation during the class:
+
+% salloc -N 1 -C cpu --qos=interactive -t 10:00 --reservation=intro_cpu -A ntrain3
+(remove --reservation=intro_gpu, and use -A ntrain3 or -A <your regular account> if doing this exercise outside of this class)
+
+<wait for a prompt>
+yunhe@nid004245:/global/cfs/cdirs/nstaff/yunhe/intro-NERSC-resources/04-pi-targ> ./pi_targ
+pi is      3.14159263 in    1.046 secs
+
+2) The batch script "run-pi-targ-gpu.sh" is prepared for you
+It builds iand runs with both Nvidia compiler and CCE compiler.
+
+If run after class, just do:
+% sbatch run-pi-targ-gpu.sh
+
+To use today's reservation, please uncomment this line removing one of the #
+##SBATCH --reservation=intro_gpu
+so it becomes:
+#SBATCH --reservation=intro_gpu
+
+There is also a "sample-run-pi-targ-gpu.output" file for your reference.

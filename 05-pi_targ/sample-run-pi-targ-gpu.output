@@ -1,0 +1,50 @@
+
+Lmod is automatically replacing "cpu/1.0" with "gpu/1.0".
+
+
+Note: the module "cpu" cannot be unloaded because it was not loaded.
+
+
+The following have been reloaded with a version change:
+  1) cudatoolkit/11.5 => cudatoolkit/11.7
+
+=== use Nvidia compiler =======
+
+Lmod is automatically replacing "gcc/11.2.0" with "nvidia/22.7".
+
+
+Lmod is automatically replacing "PrgEnv-gnu/8.3.3" with "PrgEnv-nvidia/8.3.3".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.25
+
+/usr/bin/ld: warning: /tmp/pgcudafatq2VtWL1xsXGJ.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+upload CUDA data  file=/global/cfs/cdirs/nstaff/yunhe/intro-NERSC-resources/05-pi_targ/pi_targ.f90 function=main line=16 device=0 threadid=1 variable=sum bytes=8
+launch CUDA kernel file=/global/cfs/cdirs/nstaff/yunhe/intro-NERSC-resources/05-pi_targ/pi_targ.f90 function=main line=16 device=0 host-threadid=0 num_teams=0 thread_limit=0 kernelname=nvkernel_MAIN__F1L16_2_ grid=<<<781250,1,1>>> block=<<<128,1,1>>> shmem=0b
+download CUDA data  file=/global/cfs/cdirs/nstaff/yunhe/intro-NERSC-resources/05-pi_targ/pi_targ.f90 function=main line=21 device=0 threadid=1 variable=sum bytes=8
+pi is      3.14159263 in    1.084 secs
+=== use CCE compiler =======
+
+Lmod is automatically replacing "nvidia/22.7" with "cce/15.0.1".
+
+
+Lmod is automatically replacing "PrgEnv-nvidia/8.3.3" with "PrgEnv-cray/8.3.3".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.25
+
+
+!$omp target teams distribute parallel do simd private(x) reduction(+:sum) map(sum)
+ftn-7256 ftn: WARNING MAIN, File = pi_targ.f90, Line = 16 
+   An OpenMP parallel construct in a target region is limited to a single thread.
+
+Cray Fortran : Version 15.0.1 (20230120205242_66f7391d6a03cf932f321b9f6b1d8612ef5f362c)
+Cray Fortran : Thu Jun 08, 2023  02:16:31
+Cray Fortran : Compile time:  0.5003 seconds
+Cray Fortran : 28 source lines
+Cray Fortran : 0 errors, 1 warnings, 0 other messages, 0 ansi
+Cray Fortran : "explain ftn-message number" gives more information about each message.
+pi is      3.14159263 in    1.029 secs
