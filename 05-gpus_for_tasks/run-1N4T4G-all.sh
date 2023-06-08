@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -A ntrain3
-#SBATCH --reservation=intro_gpu
+##SBATCH --reservation=intro_gpu
 #SBATCH -C gpu
 #SBATCH -q debug
 #SBATCH -t 10:00
