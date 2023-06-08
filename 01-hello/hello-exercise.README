@@ -16,25 +16,21 @@ C++ code:
 % CC -o serial-hello serial-hello.cc
 % CC -o mpi-hello mpi-hello.cc
 
-2) The batch scripts "run-hello-hsw.sh" and "run-hello-knl.sh" are prepared for you
+2) The batch scrips "run-hello-cpu.sh" is prepared for you
 to just submit with "sbatch" from your default project and without a compute node 
 reservation after this class:
-% sbatch run-hello-hsw.sh
-or 
-% sbatch run-hello-knl.sh
+% sbatch run-hello-cpu.sh
 
 To use today's reservation, please edit these files to add
-#SBATCH --reservation=xxx
-#SBATCH -A ntrain4
-where xxx is intro_hsw or intro_knl
+#SBATCH --reservation=intro_cpu
+#SBATCH -A ntrain3
 
 3) You can also use salloc to run an interacrtive batch job
-% salloc -N 2 -C haswell -q interactive -t 30:00 --reservation=xxx -A ntrain4
-(remove --reservation=xxx -A ntrain4 if doing this exercise outside of this class)
+% salloc -N 1 -C cpu -q interactive -t 30:00 --reservation=intro_cpu -A ntrain3
 
 <wait for a prompt to get onto a compute node>...
 % srun ...
-(here use the same xxx as above, also use the same srun command as in the batch scripts)
+(here use the same srun command as in the batch script)
 
 
 4) First step is to reproduce the build and run as above.
@@ -45,4 +41,4 @@ Notice the output are not ordered by MPI ranks, can you order them? (hint: use s
 
 Also understand that to run serial-hello, you can choose to use or not use the "srun" command. Not use "srun" is preferred for non-MPI jobs.   "srun" is required for MPI jobs.
 
-Can you use a different compiler, such as Cray or GNU compiler (other than the default Intel compiler) to build and run?  (hint: swap PrgEnv-xxx modules)
+Can you use a different compiler, such as Nvidia or CCE compiler (other than the default GNU compiler) to build and run?  (hint: mmodule load PrgEnv-xxx)
