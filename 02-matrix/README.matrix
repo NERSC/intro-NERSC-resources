@@ -1,0 +1,53 @@
+
+This is also a hybrid MPI/OpenMP code to produce some actual computing results
+
+1) To compile on a login node:
+
+% module load cpu
+% cc -qopenmp -o matrix matrix.c
+
+2) To run in an interactive qos with a reservation during the class:
+
+% salloc -N 1 -C cpu --qos=interactive -t 10:00 --reservation=intro_cpu -A ntrain3
+(remove --reservation=intro_cpu -A ntrain3 if doing this exercise outside of this class)
+salloc: Pending job allocation 10046391
+salloc: job 10046391 queued and waiting for resources
+salloc: job 10046391 has been allocated resources
+salloc: Granted job allocation 10046391
+salloc: Waiting for resource configuration
+salloc: Nodes nid004245 are ready for job
+
+Running with 4 MPI tasks, and 4 OpenMP threads per MPI task, matrix size N=8
+yunhe@nid004245:/global/cfs/cdirs/nstaff/yunhe/intro-NERSC-resources/02-matrix> srun -n 4 -c 64 --cpu-bind=cores ./matrix 8 4
+Time is 0.002314
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000
+
+Running with 8 MPI tasks, and 4 OpenMP threads per MPI task, matrix size N=8
+yunhe@nid004245:/global/cfs/cdirs/nstaff/yunhe/intro-NERSC-resources/02-matrix> srun -n 8 -c 32 --cpu-bind=cores ./matrix 8 4
+Time is 0.000891
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 
+8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000 8.000000
+yunhe@nid004245:/global/cfs/cdirs/nstaff/yunhe/intro-NERSC-resources/02-matrix> exit
+
+2) The batch scrips "run-matrix-cpu.sh" is prepared for you
+to just submit with "sbatch" from your default project and without a compute node 
+reservation after this class:
+% sbatch run-matrix-cpu.sh
+
+To use today's reservation, please edit these files to add
+#SBATCH --reservation=intro_cpu
+#SBATCH -A ntrain3
+

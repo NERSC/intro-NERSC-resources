@@ -4,6 +4,10 @@ This is a pure MPI code
 
 On a login node:
 
+First, load the cpu module:
+% module load cpu
+
+Then:
 Fortran code:
 % ftn -o serial-hello serial-hello.f90
 % ftn -o mpi-hello mpi-hello.f90
@@ -26,7 +30,7 @@ To use today's reservation, please edit these files to add
 #SBATCH -A ntrain3
 
 3) You can also use salloc to run an interacrtive batch job
-% salloc -N 1 -C cpu -q interactive -t 30:00 --reservation=intro_cpu -A ntrain3
+% salloc -N 1 -C cpu -q interactive -t 10:00 --reservation=intro_cpu -A ntrain3
 
 <wait for a prompt to get onto a compute node>...
 % srun ...
