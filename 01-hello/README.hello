@@ -21,8 +21,8 @@ C++ code:
 % CC -o mpi-hello mpi-hello.cc
 
 2) The batch scrips "run-hello-cpu.sh" is prepared for you
-to just submit with "sbatch" from your default project and without a compute node 
-reservation after this class:
+
+If run after class, just do:
 % sbatch run-hello-cpu.sh
 
 To use today's reservation, please edit these files to add
