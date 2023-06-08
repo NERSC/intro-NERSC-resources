@@ -36,8 +36,9 @@ To use today's reservation, please edit these files to add
 % srun ...
 (here use the same srun command as in the batch script)
 
-
 4) First step is to reproduce the build and run as above.
+
+You could refer to the "sample-run-hello-cpu.output" file.
 
 Then try to change numner of nodes, number of MPI tasks, etc. to run the mpi-hello program. (hint: modify -n and -c values) 
 
@@ -46,3 +47,15 @@ Notice the output are not ordered by MPI ranks, can you order them? (hint: use s
 Also understand that to run serial-hello, you can choose to use or not use the "srun" command. Not use "srun" is preferred for non-MPI jobs.   "srun" is required for MPI jobs.
 
 Can you use a different compiler, such as Nvidia or CCE compiler (other than the default GNU compiler) to build and run?  (hint: mmodule load PrgEnv-xxx)
+
+5) The batch script "run-hello-cpu-2.sh" is prepared for you to experiment with the tasks in 3) above.
+
+If run after class, just do:
+% sbatch run-hello-cpu-2.sh
+
+To use today's reservation during the class, please edit this file to add
+#SBATCH --reservation=intro_cpu
+#SBATCH -A ntrain3
+
+There is also a "sample-run-hello-cpu-2.output" file for your reference.
+                                                       

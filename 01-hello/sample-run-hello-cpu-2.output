@@ -1,8 +1,28 @@
- Hello from Processor            0
- Hello from Processor            1
- Hello from Processor            2
- Hello from Processor            3
- Hello from Processor            4
- Hello from Processor            5
- Hello from Processor            6
- Hello from Processor            7
+use the default gnu compiler
+Hello world from process 0 of 8
+Hello world from process 1 of 8
+Hello world from process 2 of 8
+Hello world from process 3 of 8
+Hello world from process 4 of 8
+Hello world from process 5 of 8
+Hello world from process 6 of 8
+Hello world from process 7 of 8
+use the cce compiler
+
+Lmod is automatically replacing "gcc/11.2.0" with "cce/15.0.1".
+
+
+Lmod is automatically replacing "PrgEnv-gnu/8.3.3" with "PrgEnv-cray/8.3.3".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.25
+
+ Hello from Processor  0
+ Hello from Processor  1
+ Hello from Processor  2
+ Hello from Processor  3
+ Hello from Processor  4
+ Hello from Processor  5
+ Hello from Processor  6
+ Hello from Processor  7
