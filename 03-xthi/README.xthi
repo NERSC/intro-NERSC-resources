@@ -1,0 +1,46 @@
+This is a hybrid MPI/OpenMP code.
+
+1) To build a binary for Perlmutter CPU nodes:
+% module load cpu
+% cc -qopenmp -o xthi xthi.c
+
+2) The batch script "run-xthi-cpu.sh" is prepared for you to just submit with "sbatch"
+
+If run after class, just do:
+% sbatch run-xthi-cpu.sh
+
+To use today's reservation during the class, please edit these files to add
+#SBATCH --reservation=intro_cpu
+#SBATCH -A ntrain3
+
+or doing an interactive batch run via salloc, and using the reservations today:
+(remove --reservation=intro_cpu -A ntrain3 if doing this exercise outside of this class)
+
+% salloc -N 1 -C cpu -q interactive -t 15:00 --reservation=xxx -A ntrain3
+
+<wait for a prompt to get on a compute node>, then:
+% export OMP_NUM_THREADS=8
+% export OMP_PROC_BIND=true
+% export OMP_PLACES=threads
+% srun -n 8 -c 32 --cpu-bind=cores ./xthi  
+
+3) First step is to reproduce the build and run as above.
+
+You could refer to the "sample-run-xthi-cpu.output" file.
+
+Can you order the output by MPI ranks and OpenMP threads? (hint: sort)
+
+Then try to change number of nodes, number of MPI tasks, number of OpenMP threads, and OpenMP PROC_BIND and PLACES settings, and understand the aiffinity report.
+
+Can you use a different compiler, such as Nvidia or Cray (other than the default GNU compiler) to build and run?  (hint: module load PrgEnv-xxx)
+
+4) The batch script "run-xthi-cpu-2.sh" is prepared for you to experiment with the tasks in 3) above.
+
+If run after class, just do:
+% sbatch run-xthi-cpu-2.sh
+
+To use today's reservation during the class, please edit this file to add
+#SBATCH --reservation=intro_cpu
+#SBATCH -A ntrain3
+
+There is also a "sample-run-xthi-cpu-2.output" file for your reference.
