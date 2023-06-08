@@ -23,6 +23,6 @@
      pi = step * sum
      run_time = omp_get_wtime() - start_time
      write(*,100) pi, run_time
-100    format('pi is ',f15.8,' in ',f8.3,' secs')
+100  format('pi is ',f15.8,' in ',f8.3,' secs')
 
      end program main
