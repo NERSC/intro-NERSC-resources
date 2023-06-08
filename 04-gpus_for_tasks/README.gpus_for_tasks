@@ -1,0 +1,78 @@
+
+This is a CUDA code example to run on Perlmutter GPU.
+
+1) To build:
+
+On a login node:
+
+First, load the gpu module:
+% module load gpu
+
+Then to build with default PrgEnv-gnu::
+CC -o gpus_for_tasks gpus_for_tasks.cpp
+
+Or to build with Nvidia compiler:
+% module load PrgEnv-nvidia
+% CC -cuda -o gpus_for_tasks gpus_for_tasks.cpp
+
+2) The batch scrips "run-1N4T4G-all.sh" and "run-1N4T4G-1G.sh" are prepared for you
+
+If run after class, just do:
+% sbatch run-1N4T4G-all.sh
+and
+% sbatch run-1N4T4G-1G.sh
+
+To use today's reservation, please uncomment this line removing one of the #
+##SBATCH --reservation=intro_gpu
+so it becomes:
+#SBATCH --reservation=intro_gpu
+
+Here both scripts run with 1 node, 4 tasks, and 4 GPUs, and both set "--gpus-per-task=1".
+ "run-1N4T4G-all.sh" uses "-gpu-bind=none" so all GPUs are visible to all tasks
+and  "run-1N4T4G-1G.sh" does not have "--gpu-bind=none", and only 1 GPU is visible to each task.
+
+3) You can also use salloc to run an interacrtive batch job
+% salloc -N 1 -C gpu -q interactive -t 10:00 --reservation=intro_gpu -A ntrain3
+
+<wait for a prompt to get onto a compute node>...
+
+yunhe@nid008568:/global/cfs/cdirs/nstaff/yunhe/intro-NERSC-resources/04-gpus_for_tasks> srun -n 4 -c 32 --cpu-bind=cores --gpus-per-task=1 --gpu-bind=none ./gpus_for_tasks
+Rank 3 out of 4 processes: I see 4 GPU(s).
+0 for rank 3: 0000:03:00.0
+1 for rank 3: 0000:41:00.0
+2 for rank 3: 0000:82:00.0
+3 for rank 3: 0000:C1:00.0
+Rank 0 out of 4 processes: I see 4 GPU(s).
+0 for rank 0: 0000:03:00.0
+1 for rank 0: 0000:41:00.0
+2 for rank 0: 0000:82:00.0
+3 for rank 0: 0000:C1:00.0
+...
+
+yunhe@nid008568:/global/cfs/cdirs/nstaff/yunhe/intro-NERSC-resources/04-gpus_for_tasks> srun -n 4 -c 32 --cpu-bind=cores --gpus-per-task=1 ./gpus_for_tasks
+Rank 1 out of 4 processes: I see 1 GPU(s).
+0 for rank 1: 0000:41:00.0
+Rank 2 out of 4 processes: I see 1 GPU(s).
+0 for rank 2: 0000:82:00.0
+Rank 3 out of 4 processes: I see 1 GPU(s).
+0 for rank 3: 0000:C1:00.0
+Rank 0 out of 4 processes: I see 1 GPU(s).
+0 for rank 0: 0000:03:00.0
+
+4) First step is to reproduce the build and run as above.
+
+You could refer to the "sample-run-1N4T4G-all.output" and "sample-run-1N4T4G-1G.output" files.
+
+Can you use a different compiler, such as Nvidia (other than the default GNU compiler) to build and run?  (hint: mmodule load PrgEnv-xxx)
+
+5) The batch script "run-1N4T4G-1G-2.sh" is prepared for you to experiment with the tasks in 4) above.
+
+If run after class, just do:
+% sbatch run-1N4T4G-1G-2.sh
+
+To use today's reservation, please uncomment this line removing one of the #
+##SBATCH --reservation=intro_gpu
+so it becomes:
+#SBATCH --reservation=intro_gpu
+
+There is also a "sample-run-1N4T4G-1G-2.output" file for your reference.

@@ -1,0 +1,41 @@
+use default GNU compiler
+
+Lmod is automatically replacing "cpu/1.0" with "gpu/1.0".
+
+
+Note: the module "cpu" cannot be unloaded because it was not loaded.
+
+
+The following have been reloaded with a version change:
+  1) cudatoolkit/11.5 => cudatoolkit/11.7
+
+Rank 0 out of 4 processes: I see 1 GPU(s).
+0 for rank 0: 0000:03:00.0
+Rank 1 out of 4 processes: I see 1 GPU(s).
+0 for rank 1: 0000:41:00.0
+Rank 2 out of 4 processes: I see 1 GPU(s).
+0 for rank 2: 0000:82:00.0
+Rank 3 out of 4 processes: I see 1 GPU(s).
+0 for rank 3: 0000:C1:00.0
+==============
+use Nvidia compiler
+
+Lmod is automatically replacing "gcc/11.2.0" with "nvidia/22.7".
+
+
+Lmod is automatically replacing "PrgEnv-gnu/8.3.3" with "PrgEnv-nvidia/8.3.3".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.25
+
+/usr/bin/ld: warning: /tmp/pgcudafatjhFCBLTotW4c.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+Rank 3 out of 4 processes: I see 1 GPU(s).
+0 for rank 3: 0000:C1:00.0
+Rank 1 out of 4 processes: I see 1 GPU(s).
+0 for rank 1: 0000:41:00.0
+Rank 2 out of 4 processes: I see 1 GPU(s).
+0 for rank 2: 0000:82:00.0
+Rank 0 out of 4 processes: I see 1 GPU(s).
+0 for rank 0: 0000:03:00.0

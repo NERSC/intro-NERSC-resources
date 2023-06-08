@@ -1,0 +1,8 @@
+Rank 3 out of 4 processes: I see 1 GPU(s).
+0 for rank 3: 0000:C1:00.0
+Rank 0 out of 4 processes: I see 1 GPU(s).
+0 for rank 0: 0000:03:00.0
+Rank 1 out of 4 processes: I see 1 GPU(s).
+0 for rank 1: 0000:41:00.0
+Rank 2 out of 4 processes: I see 1 GPU(s).
+0 for rank 2: 0000:82:00.0
