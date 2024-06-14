@@ -2,7 +2,7 @@ This is a hybrid MPI/OpenMP code.
 
 1) To build a binary for Perlmutter CPU nodes:
 % module load cpu
-% cc -qopenmp -o xthi xthi.c
+% cc -fopenmp -o xthi xthi.c
 
 2) The batch script "run-xthi-cpu.sh" is prepared for you to just submit with "sbatch"
 
