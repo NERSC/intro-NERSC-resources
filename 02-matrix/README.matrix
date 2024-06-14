@@ -4,7 +4,7 @@ This is also a hybrid MPI/OpenMP code to produce some actual computing results
 1) To compile on a login node:
 
 % module load cpu
-% cc -qopenmp -o matrix matrix.c
+% cc -fopenmp -o matrix matrix.c
 
 2) To run in an interactive qos with a reservation during the class:
 
